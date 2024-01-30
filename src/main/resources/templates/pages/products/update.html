@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:insert="~{fragments/basic :: head(title='Update a product | Imaginary Products')}"></head>
+<body>
+    <nav th:replace="~{fragments/layout:: navigation}"></nav>
+    <main th:object="${product}" class="min-h-[calc(100dvh-4rem)] p-8 bg-neutral-100 space-y-8">
+        <a class="text-underline text-blue-500" href="/dashboard">Back</a>
+        <h1 th:text="*{'Product: ' + name}" class="text-3xl font-bold"></h1>
+        <form th:action="@{/products/save-changes}" method="post" action="#">
+            <div class="grid grid-cols-2 gap-8">
+                <div>
+                    <input th:field="*{id}" type="hidden">
+                    <div class="mb-5">
+                        <label class="block text-sm font-medium text-gray-900">Name
+                            <input th:field="*{name}"  type="text" class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                        </label>
+                    </div>
+                    <div class="mb-5">
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white">Description
+                            <textarea th:field="*{description}" class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"></textarea>
+                        </label>
+                    </div>
+                    <div class="mb-5">
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white">Price
+                            <input th:field="*{price}"  type="text" class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                        </label>
+                    </div>
+                    <div class="mb-5">
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white">Quantity
+                            <input th:field="*{quantity}"  type="text" class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                        </label>
+                    </div>
+                    <div class="mb-5">
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white">Status
+                            <select th:field="*{status}" name="status" class="ml-2 px-3 py-2 rounded border">
+                                <option th:each="s : ${T(com.imaginaryproducts.lib.product.entity.Status).values()}"
+                                        th:value="${s}" th:text="${s}"></option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+                <div class="cursor-default pointer-events-none">
+                    <div class="mb-5">
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white">Manufacturer
+                            <input th:field="*{manufacturer}"  type="text" class="mt-2 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                        </label>
+                    </div>
+                    <div class="mb-5">
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white">Manufacturing Date
+                            <input th:field="*{manufacturingDate}"  type="date" class="mt-2 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                        </label>
+                    </div>
+                    <div class="mb-5">
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white">Acquisition Date
+                            <input th:field="*{acquisitionDate}"  type="text" class="mt-2 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="mt-6 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update</button>
+        </form>
+    </main>
+</body>
+</html>

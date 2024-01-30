@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:insert="~{fragments/basic :: head(title='Delete a product | Imaginary Products')}"></head>
+<body>
+<nav th:replace="~{fragments/layout:: navigation}"></nav>
+<main th:object="${product}" class="min-h-[calc(100dvh-4rem)] grid p-8 bg-neutral-100 space-y-8">
+  <div class="grid place-items-center">
+    <div class="flex flex-col items-center">
+      <h1 th:text="*{'Do you really want to delete: ' + name + '?'}" class="text-3xl font-bold"></h1>
+      <div class="grid grid-cols-2 gap-4 mt-[80px]">
+        <form class="grid" th:action="@{/products/remove}" method="get" action="#">
+          <input th:field="*{id}" type="hidden">
+          <button type="submit" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Delete</button>
+        </form>
+        <a class="text-blue-500 border border-blue-500 px-5 py-2.5 rounded" href="/dashboard">Cancel</a>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
+</html>

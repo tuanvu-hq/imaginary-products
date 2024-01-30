@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:insert="~{fragments/basic :: head(title='Home Page | Imaginary Products')}"></head>
+<body>
+    <nav th:replace="~{fragments/layout:: navigation}"></nav>
+    <main class="min-h-[calc(100dvh-4rem)] p-8 bg-neutral-100 space-y-8" th:object="${productResponse}">
+        <th:block th:replace="~{fragments/pagination-button :: main(current_page=*{currentPage}, check_first=*{1}, check_a=*{1}, check_b=*{lastPage}, check_last=*{lastPage}, total_results=*{totalResults}, url=*{'/home'})}"></th:block>
+
+        <p th:if="*{totalResults == 0}" class="text-xl">There are no products in the store.</p>
+
+        <div th:if="*{totalResults > 0}" class="grid grid-cols-[repeat(auto-fill,minmax(450px,1fr))] gap-4">
+            <th:block th:each="item : *{data}" th:object="${item}">
+                <th:block th:replace="~{fragments/product :: public(name=*{name}, description=*{description}, price=*{price}, quantity=*{quantity})}"></th:block>
+            </th:block>
+        </div>
+
+        <th:block th:if="*{totalResults > 0}">
+            <th:block th:replace="~{fragments/pagination-button :: main(current_page=*{currentPage}, check_first=*{1}, check_a=*{1}, check_b=*{lastPage}, check_last=*{lastPage}, total_results=*{totalResults}, url=*{'/home'})}"></th:block>
+        </th:block>
+    </main>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" lang="en" >
+<head></head>
+<body>
+    <nav th:fragment="navigation" class="h-16 px-8 flex items-center">
+        <a class="font-bold text-xl" href="/">Imaginary Products</a>
+        <a th:if="${#authentication.name} == 'anonymousUser'"  class="flex justify-center w-[120px] font-normal ml-auto px-5 py-2 text-white bg-blue-500 rounded-full cursor-pointer" href="/login">Login</a>
+        <div th:if="${#authentication.name} != 'anonymousUser'" class="flex gap-8 ml-auto items-center">
+            <a class="text-blue-500 text-xl" href="/dashboard">Dashboard</a>
+            <form  th:action="@{/logout}" class="flex justify-center w-[120px] text-white" action="#" method="post">
+                <input class="w-full h-full px-5 py-2 cursor-pointer bg-blue-500 rounded-full font-normal" type="submit" value="Logout" />
+            </form>
+        </div>
+    </nav>
+</body>
+</html>

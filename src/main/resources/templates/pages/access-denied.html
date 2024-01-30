@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" lang="en" >
+<head th:insert="~{fragments/basic :: head(title='Access Denied | Imaginary Products')}"></head>
+<body>
+    <nav th:replace="~{components/navigation}"></nav>
+    <main class="min-h-[calc(100dvh-4rem)] p-8 bg-neutral-100 grid place-items-center">
+        <p>Access denied.</p>
+        <a href="/home">Please return to the home page.</a>
+    </main>
+</body>
+</html>

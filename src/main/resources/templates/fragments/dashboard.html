@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" lang="en" >
+<head></head>
+<body>
+    <th:block  th:fragment="stats">
+        <div class="grid grid-cols-[repeat(auto-fill,minmax(auto,90px))] gap-4">
+            <div class="flex flex-col items-center gap-1 p-3 bg-blue-500 rounded">
+                <p th:text="*{lastPage}" class="w-10 h-10 grid place-items-center bg-white rounded-full"></p>
+                <p class="text-white">Pages</p>
+            </div>
+            <div class="flex flex-col items-center gap-1 p-3 bg-blue-500 rounded">
+                <p th:text="*{totalResults}" class="w-10 h-10 grid place-items-center bg-white rounded-full"></p>
+                <p class="text-white">Products</p>
+            </div>
+        </div>
+    </th:block>
+
+    <th:block th:fragment="heading">
+        <div class="flex items-end gap-1">
+            <h1 class="text-4xl font-bold text-blue-500">Dashboard</h1>
+            <p th:text="${#authentication.name}" class="text-neutral-500"></p>
+        </div>
+    </th:block>
+
+    <th:block th:fragment="create_product">
+        <div class="flex ml-auto">
+            <form th:if="${#authentication.name != 'employee'}" th:action="@{/products/create}" onsubmit="this.action = this.action + '?amount=' + this.amount.value" class="flex gap-2" action="#" method="get">
+                <button type="submit" class="grid place-items-center px-4 bg-blue-500 text-white rounded">Create a product</button>
+                <label class="block">
+                    <input class="block h-full px-2 w-16 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" name="amount" type="number" placeholder="1" />
+                </label>
+            </form>
+        </div>
+    </th:block>
+</body>
+</html>

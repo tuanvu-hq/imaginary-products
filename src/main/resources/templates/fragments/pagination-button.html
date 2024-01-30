@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" lang="en" >
+<head></head>
+<body>
+    <th:block  th:fragment="fullstep (page, check, text, url)">
+        <a th:if="${page == check}" th:text="${text}" disabled class="inline-block h-8 px-3 grid place-items-center bg-neutral-400 text-white rounded"></a>
+        <a th:if="${page != check}" th:text="${text}" th:href="@{${url}(currentPage=${check})}" class="inline-block h-8 px-3 grid place-items-center bg-blue-500 text-white rounded"></a>
+    </th:block>
+
+    <th:block  th:fragment="onestep (page, checka, checkb, url)">
+        <a th:if="${page == checka}" disabled class="inline-block h-8 px-3 grid place-items-center bg-neutral-400 text-white rounded">Previous</a>
+        <a th:if="${page != checka}" th:href="@{${url}(currentPage=${page - 1})}" class="inline-block h-8 px-3 grid place-items-center bg-blue-500 text-white rounded">Previous</a>
+        <a th:if="${page == checkb}" disabled class="inline-block h-8 px-3 grid place-items-center bg-neutral-400 text-white rounded">Next</a>
+        <a th:if="${page != checkb}" th:href="@{${url}(currentPage=${page + 1})}" class="inline-block h-8 px-3 grid place-items-center bg-blue-500 text-white rounded">Next</a>
+    </th:block>
+
+    <th:block th:fragment="main (current_page, check_first, check_a, check_b, check_last, total_results,url)">
+        <div class="flex gap-2">
+            <a th:if="${current_page == check_first}" disabled class="inline-block h-8 px-3 grid place-items-center bg-neutral-400 text-white rounded">First page</a>
+            <a th:if="${current_page != check_first}" th:href="@{${url}(currentPage=${check_first})}" class="inline-block h-8 px-3 grid place-items-center bg-blue-500 text-white rounded">First page</a>
+
+            <a th:if="${current_page == check_a || total_results == 0}" disabled class="inline-block h-8 px-3 grid place-items-center bg-neutral-400 text-white rounded">Previous</a>
+            <a th:if="${current_page != check_a && total_results != 0}" th:href="@{${url}(currentPage=${current_page - 1})}" class="inline-block h-8 px-3 grid place-items-center bg-blue-500 text-white rounded">Previous</a>
+            <a th:if="${current_page == check_b || total_results == 0}" disabled class="inline-block h-8 px-3 grid place-items-center bg-neutral-400 text-white rounded">Next</a>
+            <a th:if="${current_page != check_b && total_results != 0}" th:href="@{${url}(currentPage=${current_page + 1})}" class="inline-block h-8 px-3 grid place-items-center bg-blue-500 text-white rounded">Next</a>
+
+            <a th:if="${current_page == check_last || total_results == 0}" disabled class="inline-block h-8 px-3 grid place-items-center bg-neutral-400 text-white rounded">Last page</a>
+            <a th:if="${current_page != check_last && total_results != 0}" th:href="@{${url}(currentPage=${check_last})}" class="inline-block h-8 px-3 grid place-items-center bg-blue-500 text-white rounded">Last page</a>
+        </div>
+    </th:block>
+</body>
+</html>

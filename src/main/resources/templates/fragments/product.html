@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" lang="en" >
+<head></head>
+<body>
+  <th:block th:fragment="public (name, description, price, quantity)">
+    <div class="flex gap-6 p-4 bg-white rounded">
+      <div>
+        <div class="w-10 h-10 bg-blue-500 rounded"></div>
+      </div>
+      <div class="w-full grid grid-cols-1 grid-rows-[auto,auto,auto,auto]">
+        <h2 th:text="*{name}" class="text-xl font-bold pb-4"></h2>
+        <p th:text="*{description} ? *{description} : 'Product has no description.'" class="text-neutral-500"></p>
+        <div class="flex gap-4 pt-4 pb-2">
+          <p>Price: <th:block th:text="*{price}"></th:block>$</p>
+          <p>Quantity: <th:block th:text="*{quantity}"></th:block></p>
+        </div>
+      </div>
+    </div>
+  </th:block>
+
+  <th:block th:fragment="private (id, name, manufacturer, manufacturingDate, acquisitionDate, description, price, quantity, status)">
+    <div class="relative flex gap-6 p-4 bg-white rounded">
+      <div>
+        <div class="w-10 h-10 bg-blue-500 rounded"></div>
+      </div>
+      <div class="w-full grid grid-cols-1 grid-rows-[auto,auto,auto,auto]">
+        <h2 th:text="*{name}" class="text-xl font-bold pb-4"></h2>
+        <div>
+          <p th:text="*{'ID: ' + id}"></p>
+          <p th:text="*{'Manufacturer: ' + manufacturer}"></p>
+          <p th:text="*{'Manufacturing date: ' + manufacturingDate}"></p>
+          <p th:text="*{'Acquisition date: ' + acquisitionDate}"></p>
+        </div>
+        <p th:text="*{description} ? *{description} : 'Product has no description.'" class="text-neutral-500 pt-4"></p>
+        <div class="flex gap-4 pt-4 pb-2 items-center">
+          <p>Price: <th:block th:text="*{price}"></th:block>$</p>
+          <p>Quantity: <th:block th:text="*{quantity}"></th:block></p>
+          <p th:if="*{status.name() == 'AVAILABLE'}">Status: <span th:text="*{status}" class="inline-block ml-2 px-4 py-1 bg-green-500 text-white rounded"></span></p>
+          <p th:if="*{status.name() == 'PENDING'}">Status: <span th:text="*{status}" class="inline-block ml-2 px-4 py-1 bg-yellow-500 text-white rounded"></span></p>
+          <p th:if="*{status.name() == 'UNAVAILABLE'}">Status: <span th:text="*{status}" class="inline-block ml-2 px-4 py-1 bg-red-500 text-white rounded"></span></p>
+        </div>
+      </div>
+      <div th:if="${#authentication.name != 'employee'}" class="flex flex-col top-4 right-4 gap-2">
+        <a th:href="@{/products/update(id=*{id})}" class="w-[100px] grid place-items-center py-1 bg-blue-500 text-white rounded">Update</a>
+        <th:block th:if="${#authentication.name == 'admin'}">
+          <a th:href="@{/products/delete(id=*{id})}" class="w-[100px] grid place-items-center py-1 border border-blue-500 text-blue-500 rounded">Delete</a>
+        </th:block>
+      </div>
+    </div>
+  </th:block>
+</body>
+</html>

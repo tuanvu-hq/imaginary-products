@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" lang="en" >
+<head th:insert="~{fragments/basic :: head(title='Login | Imaginary Products')}"></head>
+<body>
+    <nav th:replace="~{fragments/layout:: navigation}"></nav>
+    <main class="min-h-[calc(100dvh-4rem)] p-8 bg-neutral-100 flex flex-col pt-[150px] items-center gap-8">
+        <div class="h-10 grid place-items-center">
+            <p th:if="${param.error}" class="text-red-500">The Username or Password is wrong.</p>
+            <p th:if="${param.logout}" class="text-green-500">You have been logged out.</p>
+
+        </div>
+        <form th:action="@{/authenticateTheUser}" class="flex flex-col w-[300px]" method="post" action="#">
+            <div class="mb-5">
+                <label class="block text-sm font-medium text-gray-900 dark:text-white">Username
+                    <input type="text" class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Username" name="username" required />
+                </label>
+            </div>
+            <div class="mb-5">
+                <label class="block text-sm font-medium text-gray-900 dark:text-white">Password
+                    <input type="password" class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Password" name="password" required />
+                </label>
+            </div>
+            <button type="submit" class="mt-2 text-white bg-blue-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Login</button>
+        </form>
+    </main>
+</body>
+</html>

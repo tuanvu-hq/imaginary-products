@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:insert="~{fragments/basic :: head(title='Dashboard | Imaginary Products')}"></head>
+<body>
+    <nav th:replace="~{fragments/layout:: navigation}"></nav>
+    <main class="min-h-[calc(100dvh-4rem)] p-8 bg-neutral-100 space-y-8" th:object="${productResponse}">
+        <th:block th:replace="~{fragments/dashboard :: heading}"></th:block>
+
+        <th:block th:replace="~{fragments/dashboard :: stats}"></th:block>
+
+        <div class="flex">
+            <th:block th:replace="~{fragments/pagination-button :: main(current_page=*{currentPage}, check_first=*{1}, check_a=*{1}, check_b=*{lastPage}, check_last=*{lastPage}, total_results=*{totalResults}, url=*{'/dashboard'})}"></th:block>
+
+            <th:block th:replace="~{fragments/dashboard :: create_product}"></th:block>
+        </div>
+
+        <div class="grid grid-cols-[repeat(auto-fill,minmax(550px,1fr))] gap-4">
+            <th:block th:each="item : *{data}" th:object="${item}">
+                <th:block th:replace="~{fragments/product :: private (id=*{id}, name=*{name}, manufacturer=*{manufacturer}, manufacturingDate=*{manufacturingDate}, acquisitionDate=*{acquisitionDate}, description=*{description}, price=*{price}, quantity=*{quantity}, status=*{status})}"></th:block>
+            </th:block>
+        </div>
+
+        <th:block th:if="*{totalResults > 0}">
+            <th:block th:replace="~{fragments/pagination-button :: main(current_page=*{currentPage}, check_first=*{1}, check_a=*{1}, check_b=*{lastPage}, check_last=*{lastPage}, total_results=*{totalResults}, url=*{'/dashboard'})}"></th:block>
+        </th:block>
+    </main>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration xmlns="http://logging.apache.org/log4j/2.0/config">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <!-- %d: Date and time -->
+            <!-- %t: Thread name -->
+            <!-- %level: Log level -->
+            <!-- %c: Logger name -->
+            <!-- %msg: Log message -->
+            <!-- %n: Line separator -->
+            <!-- -50: Justification space + spaces used for right padding (for text shorter than 50) -->
+            <!-- {1.}: Abbreviate logger name -->
+            <PatternLayout pattern="%d{dd-MM-yyyy HH:mm:ss} [%t]: %-5level %-50c{1.} %msg %n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console" />
+        </Root>
+    </Loggers>
+</Configuration>
